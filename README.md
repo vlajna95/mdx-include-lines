@@ -96,7 +96,19 @@ md_source = """Include a source file:
 print(md.convert(md_source))
 ```
 
-### Example HTML output 
+### Example HTML output (source) 
+
+```html
+<p>Include a source file: </p>
+<details>
+<summary>A short file with some greetings</summary>
+<div class="highlight" style="background: #ffffff"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;Hello all!&quot;</span>)
+<span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;I really like Markdown. And you? :)&quot;</span>)
+</code></pre></div>
+</details>
+```
+
+### Example HTML output (rendered) 
 
 <p>Include a source file: </p>
 <details>
