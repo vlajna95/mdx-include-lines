@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as readme:
 
 setup(
 	name = "mdx-include-lines",
-	version = "1.1",
+	version = "1.1.1",
 description = "This extension helps you to include lines or a whole source file into your Markdown document. The syntax of the markdown is like this: {python 1-9 test.py  Some caption for the code  1} - the two spaces before and after the caption are really important!",
 	long_description = long_description,
 	long_description_content_type = "text/markdown",
@@ -20,7 +20,7 @@ description = "This extension helps you to include lines or a whole source file 
 		]
 	},
 	install_requires = [
-		"markdown>=3",
+		"markdown>=3.4",
 		"pymdown-extensions",
 	],
 	license = "GNU General Public License v3.0",

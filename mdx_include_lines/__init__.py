@@ -27,19 +27,16 @@ SYNTAX = re.compile(r'\{([a-z]+)\s(([0-9]+)\s-\s([0-9]+)|([0-9]+)-([0-9]+)|([0-9
 
 
 class MarkdownIncludeLines(Extension):
-	def __init__(self, configs={}):
+	def __init__(self, **kwargs):
 		self.config = {
 			"base_path": [os.getcwd(), "Default location for the file to be checked - relative paths for the include statement."],
 			"encoding": ["utf-8", "Encoding of the file."],
 			"line_nums": [False, "Include the line numbers - False/True"],
 		}
-		for key, value in configs.items():
-			self.setConfig(key, value)
+		super(MarkdownIncludeLines, self).__init__(**kwargs)
 	
 	def extendMarkdown(self, md, md_globals):
-		md.preprocessors.add(
-			'include_lines', IncLinePreprocessor(md,self.getConfigs()),'_begin'
-		)
+		md.preprocessors.register(IncLinePreprocessor(md, self.getConfigs()), "include_lines", 10)
 
 
 class IncLinePreprocessor(Preprocessor):
@@ -49,11 +46,11 @@ class IncLinePreprocessor(Preprocessor):
 	m_code = []
 	
 	#methods:
-	def __init__(self,md,config):
+	def __init__(self, md, base_path=os.getcwd(), encoding="utf-8", line_nums=False):
+		self.base_path = base_path
+		self.encoding = encoding
+		self.line_nums = line_nums
 		super(IncLinePreprocessor, self).__init__(md)
-		self.base_path = config['base_path']
-		self.encoding = config['encoding']
-		self.line_nums = config['line_nums']
 	
 	def run(self,lines):
 		done = False
@@ -153,4 +150,4 @@ class IncLinePreprocessor(Preprocessor):
 
 
 def makeExtension(*args,**kwargs):
-	return MarkdownIncludeLines(kwargs)
+	return MarkdownIncludeLines(*args, **kwargs)
